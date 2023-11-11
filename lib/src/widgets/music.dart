@@ -11,6 +11,7 @@ class Music extends StatefulWidget {
     required this.source,
     required this.child,
     this.gain = 0.7,
+    this.fadeInLength,
     this.fadeOutLength,
     super.key,
   });
@@ -26,6 +27,9 @@ class Music extends StatefulWidget {
 
   /// The gain to use.
   final double gain;
+
+  /// The fade in length to use.
+  final double? fadeInLength;
 
   /// The fade out time to use.
   final double? fadeOutLength;
@@ -48,9 +52,14 @@ class MusicState extends State<Music> {
     final g = synthizerScope.synthizerContext.createBufferGenerator(
       buffer: buffer,
     )
-      ..gain.value = widget.gain
       ..looping.value = true
       ..configDeleteBehavior(linger: true);
+    final fadeIn = widget.fadeInLength;
+    if (fadeIn != null) {
+      g.fade(fadeLength: fadeIn, startGain: 0.0, endGain: widget.gain);
+    } else {
+      g.gain.value = widget.gain;
+    }
     widget.source.addGenerator(g);
     generator = g;
   }
