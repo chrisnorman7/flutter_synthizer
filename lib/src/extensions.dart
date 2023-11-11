@@ -16,6 +16,22 @@ extension FlutterSynthizerBuildContextExtensions on BuildContext {
 
   /// Get the buffer cache.
   BufferCache get bufferCache => synthizerScope.bufferCache;
+
+  /// Play a simple sound.
+  Future<void> playSound({
+    required final String assetPath,
+    required final Source source,
+    final double gain = 0.7,
+  }) async {
+    final scope = synthizerScope;
+    final buffer = await scope.bufferCache.getBuffer(this, assetPath);
+    final generator =
+        scope.synthizerContext.createBufferGenerator(buffer: buffer)
+          ..gain.value = gain
+          ..configDeleteBehavior(linger: true);
+    source.addGenerator(generator);
+    generator.destroy();
+  }
 }
 
 /// Useful methods for generators.
