@@ -13,6 +13,4 @@ import 'src/widgets/synthizer_scope.dart';
 
 export 'src/buffer_cache.dart';
 export 'src/extensions.dart';
-export 'src/widgets/inherited_music_builder.dart';
-export 'src/widgets/music_builder.dart';
 export 'src/widgets/synthizer_scope.dart';
