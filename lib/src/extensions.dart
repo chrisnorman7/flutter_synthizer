@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:dart_synthizer/dart_synthizer.dart';
 import 'package:flutter/material.dart';
 
@@ -50,4 +52,17 @@ extension FlutterSynthizerGeneratorExtensions on Generator {
       endValue: endGain,
     );
   }
+}
+
+/// Useful methods.
+extension FlutterSynthizerDouble6Extension on Double6 {
+  /// Create an instance from an [angle].
+  static Double6 fromAngle(final double angle) => Double6(
+        sin(angle * pi / 180),
+        cos(angle * pi / 180),
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+      );
 }
