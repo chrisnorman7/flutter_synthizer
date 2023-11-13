@@ -1,7 +1,8 @@
 import 'package:dart_synthizer/dart_synthizer.dart';
 import 'package:flutter/material.dart';
 
-import '../../flutter_synthizer.dart';
+import '../extensions.dart';
+import 'inherited_music_builder.dart';
 
 /// A widget that plays music.
 class MusicBuilder extends StatefulWidget {
@@ -17,11 +18,12 @@ class MusicBuilder extends StatefulWidget {
   });
 
   /// Possibly return an instance from higher up the widget tree.
-  static MusicBuilderState? maybeOf(final BuildContext context) =>
-      context.findAncestorStateOfType<MusicBuilderState>();
+  static InheritedMusicBuilder? maybeOf(final BuildContext context) =>
+      context.dependOnInheritedWidgetOfExactType<InheritedMusicBuilder>();
 
   /// Return an instance from higher up the widget tree.
-  static MusicBuilderState of(final BuildContext context) => maybeOf(context)!;
+  static InheritedMusicBuilder of(final BuildContext context) =>
+      maybeOf(context)!;
 
   /// The asset path to use for the music.
   final String assetPath;
@@ -109,5 +111,9 @@ class MusicBuilderState extends State<MusicBuilder> {
 
   /// Build a widget.
   @override
-  Widget build(final BuildContext context) => Builder(builder: widget.builder);
+  Widget build(final BuildContext context) => InheritedMusicBuilder(
+        fadeIn: fadeIn,
+        fadeOut: fadeOut,
+        child: Builder(builder: widget.builder),
+      );
 }
