@@ -39,7 +39,7 @@ extension FlutterSynthizerBuildContextExtensions on BuildContext {
       this,
       MaterialPageRoute(
         builder: (final innerContext) {
-          MusicBuilder.maybeOf(this)?.fadeOut();
+          MusicBuilder.maybeOf(innerContext)?.fadeOut();
           return builder(innerContext);
         },
       ),
