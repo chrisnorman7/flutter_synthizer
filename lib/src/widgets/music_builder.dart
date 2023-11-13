@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import '../../flutter_synthizer.dart';
 
 /// A widget that plays music.
-class Music extends StatefulWidget {
+class MusicBuilder extends StatefulWidget {
   /// Create an instance.
-  const Music({
+  const MusicBuilder({
     required this.assetPath,
     required this.source,
-    required this.child,
+    required this.builder,
     this.gain = 0.7,
     this.fadeInLength,
     this.fadeOutLength,
@@ -23,7 +23,7 @@ class Music extends StatefulWidget {
   final Source source;
 
   /// The widget below this one in the tree.
-  final Widget child;
+  final WidgetBuilder builder;
 
   /// The gain to use.
   final double gain;
@@ -36,11 +36,11 @@ class Music extends StatefulWidget {
 
   /// Create state for this widget.
   @override
-  MusicState createState() => MusicState();
+  MusicBuilderState createState() => MusicBuilderState();
 }
 
-/// State for [Music].
-class MusicState extends State<Music> {
+/// State for [MusicBuilder].
+class MusicBuilderState extends State<MusicBuilder> {
   /// The generator to use.
   BufferGenerator? generator;
 
@@ -88,5 +88,5 @@ class MusicState extends State<Music> {
 
   /// Build a widget.
   @override
-  Widget build(final BuildContext context) => widget.child;
+  Widget build(final BuildContext context) => Builder(builder: widget.builder);
 }
