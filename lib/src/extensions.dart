@@ -55,9 +55,9 @@ extension FlutterSynthizerGeneratorExtensions on Generator {
 }
 
 /// Useful methods.
-extension FlutterSynthizerDouble6Extension on Double6 {
-  /// Create an instance from an [angle].
-  static Double6 fromAngle(final double angle) => Double6(
+extension FlutterSynthizerDoubleExtension on double {
+  /// Create a [Double6], using this [double] as an angle.
+  Double6 angleToDouble6(final double angle) => Double6(
         sin(angle * pi / 180),
         cos(angle * pi / 180),
         0.0,
