@@ -35,8 +35,15 @@ extension FlutterSynthizerBuildContextExtensions on BuildContext {
 
   /// Push a widget [builder], fading any [MusicBuilder] out and back in again.
   Future<void> fadeMusicAndPushWidget(final WidgetBuilder builder) async {
-    MusicBuilder.maybeOf(this)?.fadeOut();
-    await Navigator.push(this, MaterialPageRoute(builder: builder));
+    await Navigator.push(
+      this,
+      MaterialPageRoute(
+        builder: (final innerContext) {
+          MusicBuilder.maybeOf(this)?.fadeOut();
+          return builder(innerContext);
+        },
+      ),
+    );
     MusicBuilder.maybeOf(this)?.fadeIn();
   }
 }
