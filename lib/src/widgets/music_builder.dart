@@ -16,6 +16,13 @@ class MusicBuilder extends StatefulWidget {
     super.key,
   });
 
+  /// Possibly return an instance from higher up the widget tree.
+  static MusicBuilderState? maybeOf(final BuildContext context) =>
+      context.findAncestorStateOfType<MusicBuilderState>();
+
+  /// Return an instance from higher up the widget tree.
+  static MusicBuilderState of(final BuildContext context) => maybeOf(context)!;
+
   /// The asset path to use for the music.
   final String assetPath;
 
@@ -44,24 +51,45 @@ class MusicBuilderState extends State<MusicBuilder> {
   /// The generator to use.
   BufferGenerator? generator;
 
-  /// Load the music.
-  Future<void> loadMusic() async {
-    final synthizerScope = context.synthizerScope;
-    final buffer =
-        await synthizerScope.bufferCache.getBuffer(context, widget.assetPath);
-    final g = synthizerScope.synthizerContext.createBufferGenerator(
-      buffer: buffer,
-    )
-      ..looping.value = true
-      ..configDeleteBehavior(linger: true);
+  /// Fade in [generator].
+  void fadeIn() {
     final fadeIn = widget.fadeInLength;
     if (fadeIn != null) {
-      g.fade(fadeLength: fadeIn, startGain: 0.0, endGain: widget.gain);
+      generator?.fade(fadeLength: fadeIn, startGain: 0.0, endGain: widget.gain);
     } else {
-      g.gain.value = widget.gain;
+      generator?.gain.value = widget.gain;
     }
-    widget.source.addGenerator(g);
-    generator = g;
+  }
+
+  /// Fade out [generator].
+  void fadeOut() {
+    final fadeLength = widget.fadeOutLength;
+    if (fadeLength != null) {
+      generator?.fade(
+        fadeLength: fadeLength,
+        startGain: widget.gain,
+        endGain: 0.0,
+      );
+    }
+  }
+
+  /// ]]
+  /// Load the music.
+  Future<void> loadMusic() async {
+    final buffer = await context.bufferCache.getBuffer(
+      context,
+      widget.assetPath,
+    );
+    if (mounted) {
+      final g = context.synthizerContext.createBufferGenerator(
+        buffer: buffer,
+      )
+        ..looping.value = true
+        ..configDeleteBehavior(linger: true);
+      widget.source.addGenerator(g);
+      generator = g;
+      fadeIn();
+    }
   }
 
   /// Initialise state.
@@ -75,14 +103,7 @@ class MusicBuilderState extends State<MusicBuilder> {
   @override
   void dispose() {
     super.dispose();
-    final fadeLength = widget.fadeOutLength;
-    if (fadeLength != null) {
-      generator?.fade(
-        fadeLength: fadeLength,
-        startGain: widget.gain,
-        endGain: 0.0,
-      );
-    }
+    fadeOut();
     generator?.destroy();
   }
 
