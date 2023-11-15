@@ -9,8 +9,8 @@
 library flutter_synthizer;
 
 import 'src/extensions.dart';
-import 'src/widgets/synthizer_scope.dart';
+import 'widgets/synthizer_scope.dart';
 
 export 'src/buffer_cache.dart';
 export 'src/extensions.dart';
-export 'src/widgets/synthizer_scope.dart';
+export 'widgets/synthizer_scope.dart';
