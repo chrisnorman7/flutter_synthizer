@@ -18,3 +18,87 @@ Begin by wrapping your [MaterialApp](https://api.flutter.dev/flutter/material/Ma
 ```
 
 Now you can use properties of the scope as you would expect.
+
+## Example
+
+```dart
+import 'package:filesize/filesize.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_synthizer/widgets/synthizer_scope.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return SynthizerScope(
+      child: MaterialApp(
+        title: 'flutter_synthizer Demo',
+        theme: ThemeData(
+          // This is the theme of your application.
+          //
+          // TRY THIS: Try running your application with "flutter run". You'll see
+          // the application has a purple toolbar. Then, without quitting the app,
+          // try changing the seedColor in the colorScheme below to Colors.green
+          // and then invoke "hot reload" (save your changes or press the "hot
+          // reload" button in a Flutter-supported IDE, or press "r" if you used
+          // the command line to start the app).
+          //
+          // Notice that the counter didn't reset back to zero; the application
+          // state is not lost during the reload. To reset the state, use hot
+          // restart instead.
+          //
+          // This works for code too, not just values: Most code changes can be
+          // tested with just a hot reload.
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: const MyHomePage(),
+      ),
+    );
+  }
+}
+
+class MyHomePage extends StatelessWidget {
+  /// Create an instance.
+  const MyHomePage({
+    super.key,
+  });
+
+  /// Build the widget.
+  @override
+  Widget build(final BuildContext context) {
+    final synthizerScope = SynthizerScope.of(context);
+    return Scaffold(
+      appBar: AppBar(title: const Text('Flutter Synthizer')),
+      body: ListView(
+        children: [
+          ListTile(
+            autofocus: true,
+            title: const Text('Buffer Cache Size'),
+            subtitle: Text(filesize(synthizerScope.bufferCache.size)),
+            onTap: () {},
+          ),
+          ListTile(
+            title: const Text('Buffer Cache Max Size'),
+            subtitle: Text(filesize(synthizerScope.bufferCache.maxSize)),
+            onTap: () {},
+          ),
+          ListTile(
+            title: const Text('Panner Strategy'),
+            subtitle: Text(
+              synthizerScope.synthizerContext.defaultPannerStrategy.value.name,
+            ),
+            onTap: () {},
+          )
+        ],
+      ),
+    );
+  }
+}
+```
