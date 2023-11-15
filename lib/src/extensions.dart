@@ -7,32 +7,41 @@ import '../flutter_synthizer.dart';
 
 /// Useful methods for finding synthizer objects.
 extension FlutterSynthizerBuildContextExtensions on BuildContext {
-  /// Get a synthizer scope.
+  /// Get a synthizer scope from the widget tree.
   SynthizerScopeState get synthizerScope => SynthizerScope.of(this)!;
 
-  /// Get the synthizer object.
+  /// Get the synthizer object from the nearest [synthizerScope].
   Synthizer get synthizer => synthizerScope.synthizer;
 
-  /// Get the synthizer context.
+  /// Get the synthizer context from the nearest [synthizerScope].
   Context get synthizerContext => synthizerScope.synthizerContext;
 
-  /// Get the buffer cache.
+  /// Get the buffer cache from the nearest [synthizerScope].
   BufferCache get bufferCache => synthizerScope.bufferCache;
 
   /// Play a simple sound.
-  Future<void> playSound({
+  ///
+  /// If [destroy] is `true`, then the resulting [BufferGenerator] will be
+  /// scheduled for destruction. Either way, `linger` is configured to be
+  /// `true`.
+  Future<BufferGenerator> playSound({
     required final String assetPath,
     required final Source source,
     final double gain = 0.7,
+    final bool destroy = false,
   }) async {
     final scope = synthizerScope;
     final buffer = await scope.bufferCache.getBuffer(this, assetPath);
-    final generator =
-        scope.synthizerContext.createBufferGenerator(buffer: buffer)
-          ..gain.value = gain
-          ..configDeleteBehavior(linger: true);
+    final generator = scope.synthizerContext.createBufferGenerator(
+      buffer: buffer,
+    )
+      ..gain.value = gain
+      ..configDeleteBehavior(linger: true);
     source.addGenerator(generator);
-    generator.destroy();
+    if (destroy) {
+      generator.destroy();
+    }
+    return generator;
   }
 }
 
@@ -54,9 +63,11 @@ extension FlutterSynthizerGeneratorExtensions on Generator {
   }
 }
 
-/// Useful methods.
+/// Useful methods for converting [double]s.
 extension FlutterSynthizerDoubleExtension on double {
   /// Create a [Double6], using this [double] as an angle.
+  ///
+  /// This method is mainly useful for setting [Context.orientation.value].
   Double6 angleToDouble6() => Double6(
         sin(this * pi / 180),
         cos(this * pi / 180),
