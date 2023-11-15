@@ -77,3 +77,10 @@ extension FlutterSynthizerDoubleExtension on double {
         1.0,
       );
 }
+
+/// Useful methods for audio contexts.
+extension FlutterSynthizerContextExtension on Context {
+  /// Set the [orientation] from [angle].
+  void setOrientationFromAngle(final double angle) =>
+      orientation.value = angle.angleToDouble6();
+}
