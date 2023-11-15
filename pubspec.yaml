@@ -4,7 +4,7 @@ version: 0.0.1
 homepage: https://github.com/chrisnorman7/flutter_synthizer.git
 
 environment:
-  sdk: '>=3.2.0-210.4.beta <4.0.0'
+  sdk: '>=3.1.0 <4.0.0'
   flutter: ">=1.17.0"
 
 dependencies:
