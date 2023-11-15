@@ -19,9 +19,13 @@ class SynthizerScope extends StatefulWidget {
     super.key,
   });
 
-  /// Return the nearest instance.
-  static SynthizerScopeState? of(final BuildContext context) =>
+  /// Possibly return the nearest instance.
+  static SynthizerScopeState? maybeOf(final BuildContext context) =>
       context.findAncestorStateOfType<SynthizerScopeState>();
+
+  /// Return the nearest instance.
+  static SynthizerScopeState of(final BuildContext context) =>
+      maybeOf(context)!;
 
   /// The maximum size of the buffer cache to use.
   final int bufferCacheMaxSize;

@@ -8,7 +8,7 @@ import '../flutter_synthizer.dart';
 /// Useful methods for finding synthizer objects.
 extension FlutterSynthizerBuildContextExtensions on BuildContext {
   /// Get a synthizer scope from the widget tree.
-  SynthizerScopeState get synthizerScope => SynthizerScope.of(this)!;
+  SynthizerScopeState get synthizerScope => SynthizerScope.of(this);
 
   /// Get the synthizer object from the nearest [synthizerScope].
   Synthizer get synthizer => synthizerScope.synthizer;
