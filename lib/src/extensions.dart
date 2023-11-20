@@ -46,7 +46,7 @@ extension FlutterSynthizerBuildContextExtensions on BuildContext {
 }
 
 /// Useful methods for generators.
-extension FlutterSynthizerGeneratorExtensions on Generator {
+extension FlutterSynthizerGeneratorExtensions on GainMixin {
   /// Fade in or out.
   void fade({
     required final double fadeLength,
