@@ -63,15 +63,15 @@ class BufferCache {
     final String assetPath,
   ) =>
       getBufferFromAssetBundle(
-        assetBundle: DefaultAssetBundle.of(context),
-        assetPath: assetPath,
+        DefaultAssetBundle.of(context),
+        assetPath,
       );
 
   /// Get a buffer from [assetBundle].
-  Future<Buffer> getBufferFromAssetBundle({
-    required final AssetBundle assetBundle,
-    required final String assetPath,
-  }) async {
+  Future<Buffer> getBufferFromAssetBundle(
+    final AssetBundle assetBundle,
+    final String assetPath,
+  ) async {
     final b = buffers[assetPath];
     if (b != null) {
       return b;
