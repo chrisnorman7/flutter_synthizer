@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.0
+
+- Added the `addInput` and `removeInput` extension methods to `Source`s.
+
 ## 0.2.0
 
 - Made arguments on `BufferCache.getBufferFromAssetBundle` positional.

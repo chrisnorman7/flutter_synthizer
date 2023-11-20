@@ -84,3 +84,14 @@ extension FlutterSynthizerContextExtension on Context {
   void setOrientationFromAngle(final double angle) =>
       orientation.value = angle.angleToDouble6();
 }
+
+/// Useful extension methods for sources.
+extension FlutterSynthizerSourceExtension on Source {
+  /// Add an input.
+  void addInput(final SynthizerObject input) =>
+      context.configRoute(this, input);
+
+  /// Remove an input.
+  void removeInput(final SynthizerObject input) =>
+      context.removeRoute(this, input);
+}
