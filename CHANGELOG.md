@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.1
+
+- Made the `destroy` argument to `BuildContext.playSound` mandatory.
+
 ## 0.3.0
 
 - Added the `addInput` and `removeInput` extension methods to `Source`s.
