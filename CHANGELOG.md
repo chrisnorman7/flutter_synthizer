@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.2
+
+- Affected the change from `0.3.1` that I didn't actually do.
+
 ## 0.3.1
 
 - Made the `destroy` argument to `BuildContext.playSound` mandatory.

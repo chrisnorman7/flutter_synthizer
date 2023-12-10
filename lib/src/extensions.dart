@@ -27,7 +27,7 @@ extension FlutterSynthizerBuildContextExtensions on BuildContext {
   Future<BufferGenerator> playSound({
     required final String assetPath,
     required final Source source,
-    final bool destroy = false,
+    required final bool destroy,
     final double gain = 0.7,
   }) async {
     final scope = synthizerScope;
