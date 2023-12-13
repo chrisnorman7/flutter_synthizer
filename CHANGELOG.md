@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.0
+
+- Added more parameters to `BuildContext.playSound`.
+
 ## 0.3.4
 
 - Fixed a bug which was introduced in 0.3.3.
