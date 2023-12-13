@@ -25,12 +25,13 @@ extension FlutterSynthizerBuildContextExtensions on BuildContext {
   /// scheduled for destruction.
   ///
   /// If [linger] is `true`, the sound will continue playing until it has
-  /// finished, even after it has been deleted.
+  /// finished, even after it has been deleted. If [linger] is `null`, then
+  /// [destroy] will be used instead.
   Future<BufferGenerator> playSound({
     required final String assetPath,
     required final Source source,
     required final bool destroy,
-    required final bool linger,
+    final bool? linger,
     final double gain = 0.7,
     final bool looping = false,
   }) async {
@@ -41,7 +42,7 @@ extension FlutterSynthizerBuildContextExtensions on BuildContext {
     )
       ..gain.value = gain
       ..looping.value = looping
-      ..configDeleteBehavior(linger: linger);
+      ..configDeleteBehavior(linger: linger ?? destroy);
     source.addGenerator(generator);
     if (destroy) {
       generator.destroy();

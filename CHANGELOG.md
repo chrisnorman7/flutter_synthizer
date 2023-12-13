@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.1
+
+- Stop enforcing `linger`.
+
 ## 0.4.0
 
 - Added more parameters to `BuildContext.playSound`.
