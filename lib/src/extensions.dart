@@ -36,7 +36,7 @@ extension FlutterSynthizerBuildContextExtensions on BuildContext {
       buffer: buffer,
     )
       ..gain.value = gain
-      ..configDeleteBehavior(linger: !destroy);
+      ..configDeleteBehavior(linger: destroy);
     source.addGenerator(generator);
     if (destroy) {
       generator.destroy();

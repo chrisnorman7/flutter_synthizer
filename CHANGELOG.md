@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.4
+
+- Fixed a bug which was introduced in 0.3.3.
+
 ## 0.3.3
 
 - Don't configure linger when `destroy` is `true`.
