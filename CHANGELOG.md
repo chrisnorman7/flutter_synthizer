@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.0
+
+- Renamed `BuildContext.playSound` to `BuildContext.playAssetPath`.
+
 ## 0.4.1
 
 - Stop enforcing `linger`.

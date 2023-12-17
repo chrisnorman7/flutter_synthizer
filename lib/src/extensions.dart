@@ -27,7 +27,7 @@ extension FlutterSynthizerBuildContextExtensions on BuildContext {
   /// If [linger] is `true`, the sound will continue playing until it has
   /// finished, even after it has been deleted. If [linger] is `null`, then
   /// [destroy] will be used instead.
-  Future<BufferGenerator> playSound({
+  Future<BufferGenerator> playAssetPath({
     required final String assetPath,
     required final Source source,
     required final bool destroy,
