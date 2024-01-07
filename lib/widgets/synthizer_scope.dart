@@ -75,8 +75,8 @@ class SynthizerScopeState extends State<SynthizerScope> {
 
   /// Dispose of the widget.
   ///
-  /// This method calls [synthizer.shutdown()], [synthizerContext.destroy()],
-  /// and [bufferCache.destroy()].
+  /// This method calls `synthizer.shutdown()`, `synthizerContext.destroy()`,
+  /// and `bufferCache.destroy()`.
   @override
   void dispose() {
     super.dispose();

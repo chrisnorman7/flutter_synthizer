@@ -11,6 +11,8 @@ library flutter_synthizer;
 import 'src/extensions.dart';
 import 'widgets/synthizer_scope.dart';
 
-export 'src/buffer_cache.dart';
+export 'src/buffer_cache/buffer_cache.dart';
+export 'src/buffer_cache/buffer_reference.dart';
+export 'src/buffer_cache/path_type.dart';
 export 'src/extensions.dart';
 export 'widgets/synthizer_scope.dart';

@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'package:dart_synthizer/dart_synthizer.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/synthizer_scope.dart';
+import '../../widgets/synthizer_scope.dart';
 
 /// A cache for storing buffers.
 ///
@@ -36,7 +36,7 @@ class BufferCache {
   /// The loaded buffers.
   ///
   /// Every time [getBuffer] is called, the resulting buffer is added to this
-  /// list.
+  /// map.
   final Map<String, Buffer> buffers;
 
   /// The paths of the loaded [buffers].
