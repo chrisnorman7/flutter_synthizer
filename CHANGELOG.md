@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.0
+
+- Removed an unnecessary `buildContext` argument.
+
 ## 0.6.0
 
 - Allow loading buffers from file paths as well as assets.

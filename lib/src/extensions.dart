@@ -91,7 +91,6 @@ extension FlutterSynthizerBuildContextExtensions on BuildContext {
 
   /// Play a sound from [bufferReference].
   Future<FutureOr<BufferGenerator>> playBufferReference({
-    required final BuildContext context,
     required final BufferReference bufferReference,
     required final Source source,
     required final bool destroy,
@@ -100,7 +99,7 @@ extension FlutterSynthizerBuildContextExtensions on BuildContext {
     final bool looping = false,
   }) async {
     final buffer = await bufferCache.getBuffer(
-      context: context,
+      context: this,
       bufferReference: bufferReference,
     );
     return getGenerator(
