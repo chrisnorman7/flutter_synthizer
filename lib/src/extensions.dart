@@ -90,7 +90,7 @@ extension FlutterSynthizerBuildContextExtensions on BuildContext {
   }
 
   /// Play a sound from [bufferReference].
-  Future<FutureOr<BufferGenerator>> playBufferReference({
+  FutureOr<BufferGenerator> playBufferReference({
     required final BufferReference bufferReference,
     required final Source source,
     required final bool destroy,

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.0
+
+- Fixed an incorrect return type.
+
 ## 0.7.0
 
 - Removed an unnecessary `buildContext` argument.
