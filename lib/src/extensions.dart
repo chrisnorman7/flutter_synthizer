@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:dart_synthizer/dart_synthizer.dart';
@@ -19,7 +20,29 @@ extension FlutterSynthizerBuildContextExtensions on BuildContext {
   /// Get the buffer cache from the nearest [synthizerScope].
   BufferCache get bufferCache => synthizerScope.bufferCache;
 
-  /// Play a simple sound.
+  /// Get a generator from [buffer].
+  BufferGenerator getGenerator({
+    required final Buffer buffer,
+    required final Source source,
+    required final double gain,
+    required final bool looping,
+    required final bool? linger,
+    required final bool destroy,
+  }) {
+    final generator = synthizerContext.createBufferGenerator(
+      buffer: buffer,
+    )
+      ..gain.value = gain
+      ..looping.value = looping
+      ..configDeleteBehavior(linger: linger ?? destroy);
+    source.addGenerator(generator);
+    if (destroy) {
+      generator.destroy();
+    }
+    return generator;
+  }
+
+  /// Play a sound from [assetPath].
   ///
   /// If [destroy] is `true`, then the resulting [BufferGenerator] will be
   /// scheduled for destruction.
@@ -35,19 +58,59 @@ extension FlutterSynthizerBuildContextExtensions on BuildContext {
     final double gain = 0.7,
     final bool looping = false,
   }) async {
-    final scope = synthizerScope;
-    final buffer = await scope.bufferCache.getBuffer(this, assetPath);
-    final generator = scope.synthizerContext.createBufferGenerator(
+    final buffer = await bufferCache.getAssetBuffer(this, assetPath);
+    return getGenerator(
       buffer: buffer,
-    )
-      ..gain.value = gain
-      ..looping.value = looping
-      ..configDeleteBehavior(linger: linger ?? destroy);
-    source.addGenerator(generator);
-    if (destroy) {
-      generator.destroy();
-    }
-    return generator;
+      source: source,
+      gain: gain,
+      looping: looping,
+      linger: linger,
+      destroy: destroy,
+    );
+  }
+
+  /// Play a sound from [filePath].
+  BufferGenerator playFilePath({
+    required final String filePath,
+    required final Source source,
+    required final bool destroy,
+    final bool? linger,
+    final double gain = 0.7,
+    final bool looping = false,
+  }) {
+    final buffer = bufferCache.getFileBuffer(filePath);
+    return getGenerator(
+      buffer: buffer,
+      source: source,
+      gain: gain,
+      looping: looping,
+      linger: linger,
+      destroy: destroy,
+    );
+  }
+
+  /// Play a sound from [bufferReference].
+  Future<FutureOr<BufferGenerator>> playBufferReference({
+    required final BuildContext context,
+    required final BufferReference bufferReference,
+    required final Source source,
+    required final bool destroy,
+    final bool? linger,
+    final double gain = 0.7,
+    final bool looping = false,
+  }) async {
+    final buffer = await bufferCache.getBuffer(
+      context: context,
+      bufferReference: bufferReference,
+    );
+    return getGenerator(
+      buffer: buffer,
+      source: source,
+      gain: gain,
+      looping: looping,
+      linger: linger,
+      destroy: destroy,
+    );
   }
 }
 
@@ -73,7 +136,7 @@ extension FlutterSynthizerGeneratorExtensions on GainMixin {
 extension FlutterSynthizerDoubleExtension on double {
   /// Create a [Double6], using this [double] as an angle.
   ///
-  /// This method is mainly useful for setting [Context.orientation.value].
+  /// This method is mainly useful for setting `Context.orientation.value`.
   Double6 angleToDouble6() => Double6(
         sin(this * pi / 180),
         cos(this * pi / 180),

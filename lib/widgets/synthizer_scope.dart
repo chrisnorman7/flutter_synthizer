@@ -60,8 +60,8 @@ class SynthizerScopeState extends State<SynthizerScope> {
 
   /// Initialise state.
   ///
-  /// This method calls [synthizer.initialize()], and creates [synthizerContext]
-  /// and [bufferCache].
+  /// This method creates [synthizer], calls `synthizer.initialize()`, and
+  /// creates [synthizerContext] and [bufferCache].
   @override
   void initState() {
     super.initState();

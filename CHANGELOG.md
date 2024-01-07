@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.0
+
+- Allow loading buffers from file paths as well as assets.
+
 ## 0.5.0
 
 - Renamed `BuildContext.playSound` to `BuildContext.playAssetPath`.
