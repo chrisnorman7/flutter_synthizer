@@ -1,7 +1,7 @@
 import 'package:dart_synthizer/dart_synthizer.dart';
 import 'package:flutter/material.dart';
 
-import '../src/buffer_cache.dart';
+import '../src/buffer_cache/buffer_cache.dart';
 
 /// A gigabyte.
 const gigabyte = 1073741824;
